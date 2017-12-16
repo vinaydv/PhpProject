@@ -1,61 +1,76 @@
 package Test;
 
+import static org.testng.Assert.assertEquals;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class testphp {
+public class TestPhpTravels {
 	
-	WebDriver driver ; 
+	public WebDriver driver = null ; 
 	
 	@BeforeTest
 	public void setDriver(){
-		
-		//driver = new FirefoxDriver();
-		
-		System.setProperty("webdriver.chrome.driver","C:/Users/Hackathon/Downloads/chromedriver_win32/chromedriver.exe");
+				
+		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("test-type");
 		options.addArguments("start-maximized");
 		options.addArguments("--enable-automation");
 		options.addArguments("test-type=browser");
 		options.addArguments("disable-infobars");
-		WebDriver driver = new ChromeDriver(options);
-		driver.get("http://gmail.com");
+		driver = new ChromeDriver(options);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.get("http://phptravels.net");
 		driver.manage().window().maximize();
+	}
 	
+	/*@Test
+	public void testLogin() throws IOException{
+		
+		
+		CommonComponents.setEuroCurrencyAndLanguage(driver);
+		CommonComponents.login(driver);
+		
+	}*/
+	
+		
+	@Test
+	public void testNewsLetter() throws InterruptedException, IOException{
+		
+		CommonComponents.setEuroCurrencyAndLanguage(driver);
+		CommonComponents.login(driver);
+		Assert.assertEquals(CommonComponents.newsletterSectionDefault(driver), "Yes");
+		Assert.assertEquals(CommonComponents.newslettertoggle(driver),"No");
+		
+		
+		CommonComponents.newslettertoggle(driver);
 		
 		
 	}
 	
 	@Test
-	public void Test1(){
+	public void testSearchHotels() throws IOException
+	{
+		CommonComponents.setEuroCurrencyAndLanguage(driver);
+		CommonComponents.login(driver);
 		
-	}
-	
-	@Test
-	public void Test2(){
-		
-	}
-	
-	
-	@Test
-	public void Test3(){
-		
-	}
-	
-	
-	@Test
-	public void Test4(){
+		Assert.assertTrue(CommonComponents.searchHotels(driver));
 		
 	}
 	
 	
 	
-	
-	
-
+	@AfterTest
+	public void tearDown(){
+		driver.quit();
+	}
 }
