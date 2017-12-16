@@ -6,34 +6,31 @@ import org.openqa.selenium.support.ui.Select;
 
 public class Reusable {
 	
-	public static void clickElementByXpath(WebDriver driver, String object){
-		driver.findElement(By.xpath(object)).click();
+	public static void clickElementByXpath(WebDriver driver, By object){
+		driver.findElement(object).click();
 		
 	}
 	
-	public static void clickElementByID(WebDriver driver, String object){
-		driver.findElement(By.id(object)).click();
-	}
-	
-	public static void selectDropDownByText(WebDriver driver, String object, String value){
-		Select select = new Select(driver.findElement(By.xpath(object)));
+		
+	public static void selectDropDownByText(WebDriver driver, By object, String value){
+		Select select = new Select(driver.findElement(object));
 		select.selectByVisibleText(value);
 	}
 	
-	public static void sendKeysInTextBox(WebDriver driver, String object,String text){
-		driver.findElement(By.xpath(object)).sendKeys(text);
+	public static void sendKeysInTextBox(WebDriver driver, By object,String text){
+		driver.findElement(object).sendKeys(text);
 	}
 	
-	public static void clearTextBox(WebDriver driver, String locator){
-		driver.findElement(By.xpath(locator)).clear();
+	public static void clearTextBox(WebDriver driver, By object){
+		driver.findElement(object).clear();
 	}
 	
-	public static boolean ElementIsDisplayed(WebDriver driver, String object){
-		return driver.findElement(By.xpath(object)).isDisplayed();
+	public static boolean ElementIsDisplayed(WebDriver driver, By object){
+		return driver.findElement(object).isDisplayed();
 	}
 	
-	public static boolean ElementIsEnabled(WebDriver driver, String object){
-		return driver.findElement(By.xpath(object)).isEnabled();
+	public static boolean ElementIsEnabled(WebDriver driver, By object){
+		return driver.findElement(object).isEnabled();
 	}
 	
 	
