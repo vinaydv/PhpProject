@@ -8,7 +8,6 @@ public class Reusable {
 	
 	public static void clickElementByXpath(WebDriver driver, By object){
 		driver.findElement(object).click();
-		
 	}
 	
 		
